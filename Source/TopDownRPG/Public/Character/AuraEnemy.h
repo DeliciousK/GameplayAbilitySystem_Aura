@@ -6,6 +6,8 @@
 #include "Character/AuraCharacterBase.h"
 #include "../Interaction/EnemyInterface.h"
 #include <TopDownRPG/TopDownRPG.h>
+#include <AbilitySystem/AuraAbilitySystemComponent.h>
+#include <AbilitySystem/AuraAttributeSet.h>
 #include "AuraEnemy.generated.h"
 
 /**
@@ -16,9 +18,10 @@ class TOPDOWNRPG_API AAuraEnemy : public AAuraCharacterBase,public IEnemyInterfa
 {
 	GENERATED_BODY()
 public:
+	AAuraEnemy();
 	virtual void HighLightActor()override;
 	virtual void UnHighLightActor()override;
-
+	virtual void BeginPlay()override;
 	UPROPERTY(BlueprintReadOnly)
 	bool bhighlighted = false;
 };
