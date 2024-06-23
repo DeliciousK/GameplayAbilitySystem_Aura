@@ -18,7 +18,7 @@ AAuraCharacter::AAuraCharacter()
 
 void AAuraCharacter::BeginPlay()
 {
-	Super:BeginPlay();
+	Super::BeginPlay();
 	
 
 }
@@ -26,14 +26,14 @@ void AAuraCharacter::BeginPlay()
 void AAuraCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
-	InitAbilitySystem();
+	InitAuraAbilityInfo();
 
 
 }
 
 void AAuraCharacter::OnRep_PlayerState()
 {
-	InitAbilitySystem();
+	InitAuraAbilityInfo();
 }
 
 void AAuraCharacter::InitAuraAbilityInfo()
