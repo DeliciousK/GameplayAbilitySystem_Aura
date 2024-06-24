@@ -6,8 +6,11 @@
 #include "Character/AuraCharacterBase.h"
 #include "GameFramework/CharactermovementComponent.h"
 #include <Player/AruaPlayerState.h>
-#include "AuraCharacter.generated.h"
+#include <Game/AuraGameModeBase.h>
+#include <UI/HUD/AuraUUD.h>
+#include <Character/AuraPlayerController.h>
 
+#include "AuraCharacter.generated.h"
 /**
  * 
  */

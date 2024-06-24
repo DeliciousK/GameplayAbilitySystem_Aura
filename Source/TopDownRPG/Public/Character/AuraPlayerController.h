@@ -6,9 +6,8 @@
 #include "GameFramework/PlayerController.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
-#include "../Interaction/EnemyInterface.h"
+#include <Interaction/EnemyInterface.h>
 #include "AuraPlayerController.generated.h"
-
 
 /**
  * 
@@ -35,6 +34,10 @@ private:
 	void Move(const FInputActionValue& InputActionValue);
 
 	void CursorTrace();
-
+	UPROPERTY()
+	 TScriptInterface <IEnemyInterface>LastActor;
+	UPROPERTY()
+	 TScriptInterface <IEnemyInterface>ThisActor;
+	
 
 };

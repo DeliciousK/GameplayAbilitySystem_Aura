@@ -4,6 +4,9 @@
 #include "Character/AuraCharacter.h"
 
 
+
+
+
 AAuraCharacter::AAuraCharacter()
 {
 	GetCharacterMovement()->bOrientRotationToMovement = true;
@@ -27,8 +30,8 @@ void AAuraCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 	InitAuraAbilityInfo();
-
-
+	
+	
 }
 
 void AAuraCharacter::OnRep_PlayerState()
@@ -45,5 +48,12 @@ void AAuraCharacter::InitAuraAbilityInfo()
 	AttributeSet = AuraPS->GetAttributeSet();
 	AbilitySystemComponent->InitAbilityActorInfo(AuraPS, this);
 	
+	if (AAuraPlayerController* AuraPlayerController = Cast<AAuraPlayerController>(GetController())) {
+		AAuraUUD* AuraHUD = Cast<AAuraUUD>(AuraPlayerController->GetHUD());
+		if (AuraHUD) {
+		AuraHUD->InitOverlay(AuraPlayerController,AuraPS,AbilitySystemComponent,AttributeSet);
+		}
+		
+	}
 	
 }
