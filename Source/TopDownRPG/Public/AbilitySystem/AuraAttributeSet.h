@@ -6,6 +6,10 @@
 #include "AttributeSet.h"
 #include "AbilitySystemComponent.h"
 #include "Net/UnrealNetwork.h"
+#include "GameplayEffectExtension.h"
+#include "GameplayEffectTypes.h"
+#include "GameFramework/Character.h"
+#include <AbilitySystemBlueprintLibrary.h>
 #include "AuraAttributeSet.generated.h"
 
 //GAMEPLAYATTRIBUTE_PROPERTY_GETTER(UAuraAttributeSet, MaxHealth)
@@ -17,6 +21,38 @@
 /**
  * 
  */
+USTRUCT()
+struct  FEffectProperties {
+
+	GENERATED_BODY()
+
+	FEffectProperties() {};
+	
+	UPROPERTY()
+	FGameplayEffectContextHandle EffectContext ;
+
+	UPROPERTY()
+	TObjectPtr<UAbilitySystemComponent> SourceASC=nullptr;
+
+	UPROPERTY()
+	TObjectPtr<AActor> SourceAvatarActor = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<AController> SourceController = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<ACharacter> SourceCharacter = nullptr;
+	UPROPERTY()
+	TObjectPtr<UAbilitySystemComponent> TargetASC=nullptr;
+	UPROPERTY()
+	TObjectPtr<AActor> TargetAvatarActor = nullptr;
+	UPROPERTY()
+	TObjectPtr<AController> TargetController = nullptr;
+	UPROPERTY()
+	TObjectPtr<ACharacter> TargetCharacter = nullptr;
+
+};
+
 UCLASS()
 class TOPDOWNRPG_API UAuraAttributeSet : public UAttributeSet
 {
@@ -24,6 +60,10 @@ class TOPDOWNRPG_API UAuraAttributeSet : public UAttributeSet
 public:
 	UAuraAttributeSet();
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps)const override;
+
+	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+
+	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
 
 	UFUNCTION()
 	void OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth)const;
@@ -55,5 +95,11 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Mana, Category = "Vital Attributes")
 	FGameplayAttributeData Mana;
-	
+private:
+
+	//UPROPERTY()
+	//FEffectProperties EffectProperties;
+
+	void SetEffectProperties(const struct FGameplayEffectModCallbackData& Data, FEffectProperties & Props) const;
+
 };
